@@ -39,6 +39,8 @@
       # Hyprland plugins
       ".config/hypr/plugin-hyprspace.conf" = linkForce "hypr/plugin-hyprspace.conf";
       ".config/hypr/plugin-split-monitor-workspace.conf" = linkForce "hypr/plugin-split-monitor-workspace.conf";
+      ".config/waybar/config.jsonc" = linkForce "waybar/config.jsonc";
+
         
       # Cool screensaver
       ".config/omarchy/branding/screensaver.txt" = linkForce "omarchy/branding/screensaver.txt";

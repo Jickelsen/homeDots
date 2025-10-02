@@ -1,79 +1,58 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "jickel";
   home.homeDirectory = "/home/jickel";
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "25.05";
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    pkgs.hello #just a test
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-    ".config/nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Code/homeDots/alacritty/alacritty.toml"
-    };
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+  wayland.windowManager.hyprland = {
+    enable = false; # We still need to add the plugin configuration manually for now
+    package = null;  # don’t reinstall
+    extraConfig = ''
+      # Plugins Configuration
+      source = ~/.config/hypr/plugin-split-monitor-workspace.conf
+      source = ~/.config/hypr/plugin-hyprspace.conf
+    '';
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/jickel/etc/profile.d/hm-session-vars.sh
-  #
+  home.file = let
+    dots = "${config.home.homeDirectory}/Code/homeDots"; 
+    link = path: config.lib.file.mkOutOfStoreSymlink "${dots}/${path}";
+    linkForce = path: {
+      source = config.lib.file.mkOutOfStoreSymlink "${dots}/${path}";
+      force = true;
+    };
+  in {
+      ".config/hypr/autostart.conf" = linkForce "hypr/autostart.conf";
+      ".config/hypr/bindings.conf" = linkForce "hypr/bindings.conf";
+      ".config/hypr/envs.conf" = linkForce "hypr/envs.conf";
+      ".config/hypr/hypridle.conf" = linkForce "hypr/hypridle.conf";
+      ".config/hypr/hyprlock.conf" = linkForce "hypr/hyprlock.conf";
+      ".config/hypr/input.conf" = linkForce "hypr/input.conf";
+
+      # Hyprland plugins
+      ".config/hypr/plugin-hyprspace.conf" = linkForce "hypr/plugin-hyprspace.conf";
+      ".config/hypr/plugin-split-monitor-workspace.conf" = linkForce "hypr/plugin-split-monitor-workspace.conf";
+        
+      # Cool screensaver
+      ".config/omarchy/branding/screensaver.txt" = linkForce "omarchy/branding/screensaver.txt";
+  };
+
   home.sessionVariables = {
-    EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Enable XDG desktop integration
+  targets.genericLinux.enable = true;
+  xdg.enable = true;
+  xdg.mime.enable = true;
 }

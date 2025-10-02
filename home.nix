@@ -40,6 +40,7 @@
       ".config/hypr/plugin-hyprspace.conf" = linkForce "hypr/plugin-hyprspace.conf";
       ".config/hypr/plugin-split-monitor-workspace.conf" = linkForce "hypr/plugin-split-monitor-workspace.conf";
       ".config/waybar/config.jsonc" = linkForce "waybar/config.jsonc";
+      ".config/waybar/style.css" = linkForce "waybar/style.css";
 
         
       # Cool screensaver

@@ -1,4 +1,6 @@
 @import "../omarchy/current/theme/waybar.css";
+@import "./modules/virtual-desktops/minimal-style.css";
+
 
 * {
   background-color: @background;

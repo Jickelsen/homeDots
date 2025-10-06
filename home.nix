@@ -37,10 +37,15 @@
       ".config/hypr/input.conf" = linkForce "hypr/input.conf";
 
       # Hyprland plugins
+      ".config/hypr/plugin-virtual-desktops.conf" = linkForce "hypr/plugin-virtual-desktops.conf";
       ".config/hypr/plugin-hyprspace.conf" = linkForce "hypr/plugin-hyprspace.conf";
       ".config/hypr/plugin-split-monitor-workspace.conf" = linkForce "hypr/plugin-split-monitor-workspace.conf";
+
+      # Waybar with plugins
       ".config/waybar/config.jsonc" = linkForce "waybar/config.jsonc";
       ".config/waybar/style.css" = linkForce "waybar/style.css";
+      ".config/waybar/modules/virtual-desktops/libwaybar_vd.so" = linkForce "waybar/modules/virtual-desktops/libwaybar_vd.so";
+      ".config/waybar/modules/virtual-desktops/minimal-style.css" = linkForce "waybar/modules/virtual-desktops/minimal-style.css";
 
         
       # Cool screensaver

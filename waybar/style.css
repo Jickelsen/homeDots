@@ -21,6 +21,14 @@
   margin-right: 8px;
 }
 
+#custom-vpn {
+  margin: 0px 10px 0px 5px;
+}
+
+#custom-vpn.active {
+  color: #a6e3a1; /* Green */
+}
+
 #workspaces button {
   all: initial;
   padding: 0 6px;

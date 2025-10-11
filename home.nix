@@ -44,6 +44,9 @@
       # Waybar with plugins
       ".config/waybar/config.jsonc" = linkForce "waybar/config.jsonc";
       ".config/waybar/style.css" = linkForce "waybar/style.css";
+      ".config/waybar/check-vpn-status.sh" = linkForce "waybar/check-vpn-status.sh";
+      ".config/waybar/select.sh" = linkForce "waybar/select.sh";
+      ".config/waybar/toggle-vpn.sh" = linkForce "waybar/toggle-vpn.sh";
       ".config/waybar/modules/virtual-desktops/libwaybar_vd.so" = linkForce "waybar/modules/virtual-desktops/libwaybar_vd.so";
       ".config/waybar/modules/virtual-desktops/minimal-style.css" = linkForce "waybar/modules/virtual-desktops/minimal-style.css";
 

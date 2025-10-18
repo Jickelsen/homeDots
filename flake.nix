@@ -8,10 +8,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    system-manager = {
+      url = "github:numtide/system-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    { nixpkgs, home-manager, system-manager, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -29,7 +33,6 @@
         #   homeDirectory = "/home/<work-username>";
         # };
       };
-
       mkHomeConfig = name: config:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -53,5 +56,10 @@
     in
     {
       homeConfigurations = builtins.mapAttrs mkHomeConfig userConfigs;
+      systemConfigs.default = system-manager.lib.makeSystemConfig {
+        modules = [
+          ./system.nix
+        ];
+      };
     };
 }
